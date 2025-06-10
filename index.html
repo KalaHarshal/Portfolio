@@ -2,48 +2,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio Website</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Website</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 
 <body>
-    <header>
-        <a href="#" class="logo">Harshal</a>
-        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
-        <nav>
-            <a href="#" class="active">Home</a>
-            <a href="#">Services</a>
-            <a href="#">Skills</a>
-            <a href="#">Project</a>
-            <a href="#">Education</a>
-            <a href="#">Contact</a>
-        </nav>
-    </header>
+  <header>
+    <a href="#" class="logo" id="logo">Harshal</a>
 
-    <section class="home">
-        <div class="home-img">
-            <img src="main.png" alt="Avatar Image" />
-        </div>
-        <div class="home-content">
-            <h1>Hi, It's <span class="name">Harshal</span></h1>
-            <h3 class="typing-text">I'm a <span id="typed-text"></span></h3>
+    <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+    <nav>
+      <a href="#" class="active">Home</a>
+      <a href="#">Services</a>
+      <a href="#">Skills</a>
+      <a href="#">Project</a>
+      <a href="#">Education</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
 
-            <p>
-                Welcome to my portfolio website. Here you can find information about my skills, projects, and education.
-            </p>
-            <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-            </div>
-            <a href="#" class="btn">Hire me</a>
-        </div>
-    </section>
-      <div class="bottom-nav">
+  <section class="home">
+    <div class="home-img">
+      <img src="main.png" alt="Avatar Image" />
+    </div>
+    <div class="home-content">
+      <h1>Hi, It's <span class="name">Harshal</span></h1>
+      <h3 class="typing-text">I'm a <span id="typed-text"></span></h3>
+
+      <p>
+        Welcome to my portfolio website. Here you can find information about my skills, projects, and education.
+      </p>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+      </div>
+      <a href="#" class="btn">Hire me</a>
+    </div>
+  </section>
+  <div class="bottom-nav">
     <a href="#" class="active"><i class="fas fa-home"></i></a>
     <a href="#"><i class="fas fa-cogs"></i></a>
     <a href="#"><i class="fas fa-code"></i></a>
@@ -52,52 +53,68 @@
   </div>
 
 
-    <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const nav = document.querySelector('nav');
-        menuToggle.onclick = () => {
-            nav.classList.toggle('active');
-        };
-        const roles = [
-            "Software Engineer",
-            "Web Developer",
-            "UI/UX Designer",
-            "App Developer",
-            "Data Analyst"
-        ];
+  <script>
+    let lastScrollTop = 0;
+    const logo = document.getElementById('logo');
 
-        const typedText = document.getElementById("typed-text");
-        let roleIndex = 0;
-        let charIndex = 0;
-        let typing = true;
+    window.addEventListener("scroll", function () {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        function typeEffect() {
-            if (typing) {
-                if (charIndex < roles[roleIndex].length) {
-                    typedText.textContent += roles[roleIndex].charAt(charIndex);
-                    charIndex++;
-                    setTimeout(typeEffect, 100);
-                } else {
-                    typing = false;
-                    setTimeout(typeEffect, 1500); // Pause before deleting
-                }
-            } else {
-                if (charIndex > 0) {
-                    typedText.textContent = roles[roleIndex].substring(0, charIndex - 1);
-                    charIndex--;
-                    setTimeout(typeEffect, 50);
-                } else {
-                    typing = true;
-                    roleIndex = (roleIndex + 1) % roles.length;
-                    setTimeout(typeEffect, 500); // Pause before typing next
-                }
-            }
+      if (scrollTop > lastScrollTop) {
+        // Scrolling down
+        logo.style.opacity = "0";
+      } else {
+        // Scrolling up
+        logo.style.opacity = "1";
+      }
+
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    })
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    menuToggle.onclick = () => {
+      nav.classList.toggle('active');
+    };
+    const roles = [
+      "Software Engineer",
+      "Web Developer",
+      "UI/UX Designer",
+      "App Developer",
+      "Data Analyst"
+    ];
+
+    const typedText = document.getElementById("typed-text");
+    let roleIndex = 0;
+    let charIndex = 0;
+    let typing = true;
+
+    function typeEffect() {
+      if (typing) {
+        if (charIndex < roles[roleIndex].length) {
+          typedText.textContent += roles[roleIndex].charAt(charIndex);
+          charIndex++;
+          setTimeout(typeEffect, 100);
+        } else {
+          typing = false;
+          setTimeout(typeEffect, 1500); // Pause before deleting
         }
+      } else {
+        if (charIndex > 0) {
+          typedText.textContent = roles[roleIndex].substring(0, charIndex - 1);
+          charIndex--;
+          setTimeout(typeEffect, 50);
+        } else {
+          typing = true;
+          roleIndex = (roleIndex + 1) % roles.length;
+          setTimeout(typeEffect, 500); // Pause before typing next
+        }
+      }
+    }
 
-        document.addEventListener("DOMContentLoaded", typeEffect);
+    document.addEventListener("DOMContentLoaded", typeEffect);
 
 
-    </script>
+  </script>
 </body>
 
 </html>
