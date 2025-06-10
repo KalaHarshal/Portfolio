@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
 * {
@@ -37,7 +38,7 @@ header {
   filter: drop-shadow(0 0 10px rgba(183, 75, 75, 0.5));
 }
 
-.logo {
+.logo { 
   font-size: 3rem;
   font-weight: 800;
   color: #b74b4b;
