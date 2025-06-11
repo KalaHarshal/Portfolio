@@ -227,7 +227,7 @@ span {
     width: 88%;
     margin-inline: auto;
     height: 60px;
-    background-color: hsla(0, 0%, 98%, 0.3);
+    background-color: hsla(0, 0%, 98%, 0.5);
     box-shadow: 0 0 10px rgba(183, 75, 75, 0.5);
     display: flex;
     justify-content: space-around;
