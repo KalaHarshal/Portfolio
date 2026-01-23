@@ -37,7 +37,7 @@ export const Navigation = () => {
           className="text-2xl font-bold gradient-text"
           whileHover={{ scale: 1.05 }}
         >
-          JD
+          HK
         </motion.a>
 
         {/* Desktop Navigation */}
@@ -63,8 +63,10 @@ export const Navigation = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <Button variant="default" size="sm" className="glow">
-              Resume
+            <Button variant="default" size="sm" className="glow" asChild>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                Resume
+              </a>
             </Button>
           </motion.li>
         </ul>
@@ -101,8 +103,15 @@ export const Navigation = () => {
                 </li>
               ))}
               <li>
-                <Button variant="default" className="w-full glow">
-                  Resume
+                <Button variant="default" className="w-full glow" asChild>
+                  <a 
+                    href="/resume.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Resume
+                  </a>
                 </Button>
               </li>
             </ul>

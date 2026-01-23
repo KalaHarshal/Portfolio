@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowDown, Github, Linkedin, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const roles = ['Full-Stack Developer', 'UI/UX Enthusiast', 'Problem Solver', 'Tech Innovator'];
+const roles = ['Full-Stack Developer', 'Machine Learning Enthusiast', 'Problem Solver', 'Flutter Developer'];
 
 export const Hero = () => {
   return (
@@ -47,11 +47,11 @@ export const Hero = () => {
             transition={{ delay: 0.3 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold"
           >
-            <span className="text-foreground">John</span>{' '}
-            <span className="gradient-text text-glow">Doe</span>
+            <span className="text-foreground">Harshal</span>{' '}
+            <span className="gradient-text">Kala</span>
           </motion.h1>
 
-          {/* Animated Role */}
+          {/* Role Carousel */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -103,8 +103,8 @@ export const Hero = () => {
             className="flex items-center justify-center gap-6 pt-8"
           >
             {[
-              { icon: Github, href: 'https://github.com', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+              { icon: Github, href: 'https://github.com/kalaharshal', label: 'GitHub' },
+              { icon: Linkedin, href: 'https://linkedin.com/in/harshal-kala', label: 'LinkedIn' },
               { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
             ].map(({ icon: Icon, href, label }) => (
               <motion.a

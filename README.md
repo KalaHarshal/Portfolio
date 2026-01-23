@@ -1,73 +1,78 @@
-# Welcome to your Lovable project
 
-## Project info
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+# Harshal Kala - Portfolio
 
-## How can I edit this code?
+A modern, responsive portfolio website built to showcase my projects, skills, and experience as a Full-Stack Developer. Features a dark-themed design with electric accents, smooth animations, and interactive elements.
 
-There are several ways of editing your application.
+## 🚀 Live Demo
 
-**Use Lovable**
+[Insert Vercel Deployment Link Here]
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## ✨ Features
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Modern UI/UX**: Built with Tailwind CSS and Shadcn UI for a sleek, dark-mode aesthetic.
+- **Responsive Design**: Fully responsive across all devices (Mobile, Tablet, Desktop).
+- **Animations**: Smooth page transitions and element reveals powered by Framer Motion.
+- **Contact Form**: Direct email integration via the user's default mail client.
+- **Dynamic Content**: Sections for About, Experience, Projects, Skills, and Contact.
 
-**Use your preferred IDE**
+## 🛠️ Tech Stack
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Frontend**: [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Components**: [Shadcn UI](https://ui.shadcn.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Deployment**: [Vercel](https://vercel.com/)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🏃‍♂️ Getting Started
 
-Follow these steps:
+Follow these steps to run the project locally on your machine.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Prerequisites
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- Node.js (v18 or higher)
+- npm or bun
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Installation
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/kalaharshal/Portfolo.git
+   cd Portfolo
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+### Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   ├── components/
+│   ├── layouts/
+│   ├── pages/
+│   └── styles/
+├── public/
+└── package.json
 ```
 
-**Edit a file directly in GitHub**
+### Contributing
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Contributions are welcome! Please read the [Contributing Guide](CONTRIBUTING.md) for more information.
 
-**Use GitHub Codespaces**
+### License
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## What technologies are used for this project?
+---
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Made with 💖 by Harshal Kala
