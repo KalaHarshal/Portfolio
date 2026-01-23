@@ -1,21 +1,20 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Github, Linkedin, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'hello@johndoe.dev', href: 'mailto:hello@johndoe.dev' },
-  { icon: MapPin, label: 'Location', value: 'San Francisco, CA', href: '#' },
-  { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+  { icon: Mail, label: 'Email', value: 'kalaharshal03@gmail.com', href: 'mailto:kalaharshal03@gmail.com' },
+  { icon: MapPin, label: 'Location', value: 'Solapur, Maharashtra', href: '#' },
+  { icon: Phone, label: 'Phone', value: '+91 86687 63831', href: 'tel:+918668763831' },
 ];
 
 const socialLinks = [
-  { icon: Github, label: 'GitHub', href: 'https://github.com', color: 'hover:text-foreground' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com', color: 'hover:text-[#0A66C2]' },
-  { icon: Twitter, label: 'Twitter', href: 'https://twitter.com', color: 'hover:text-[#1DA1F2]' },
+  { icon: Github, label: 'GitHub', href: 'https://github.com/kalaharshal', color: 'hover:text-foreground' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/harshal-kala', color: 'hover:text-[#0A66C2]' },
 ];
 
 export const Contact = () => {
@@ -25,16 +24,23 @@ export const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    const { name, email, message } = formData;
+    
+    // Construct the mailto link
+    const subject = `Portfolio Contact from ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+    const mailtoLink = `mailto:kalaharshal03@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Open the email client
+    window.location.href = mailtoLink;
 
     toast({
-      title: "Message sent! 🎉",
-      description: "Thanks for reaching out. I'll get back to you soon!",
+      title: "Email Client Opened",
+      description: "Please hit send in your email client to complete the message.",
     });
 
     setFormData({ name: '', email: '', message: '' });
@@ -85,7 +91,7 @@ export const Contact = () => {
                   <Input
                     id="name"
                     name="name"
-                    placeholder="John Doe"
+                    placeholder="Your Name"
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -100,7 +106,7 @@ export const Contact = () => {
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder="your@email.com"
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -108,7 +114,6 @@ export const Contact = () => {
                   />
                 </div>
               </div>
-              
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium">
                   Message
@@ -154,70 +159,43 @@ export const Contact = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="space-y-8"
           >
-            {/* Info Cards */}
-            <div className="space-y-4">
-              {contactInfo.map((info, index) => (
-                <motion.a
-                  key={info.label}
-                  href={info.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                  className="flex items-center gap-4 p-4 glass rounded-xl hover-lift group"
+            {/* Contact Cards */}
+            <div className="grid gap-6">
+              {contactInfo.map(({ icon: Icon, label, value, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="flex items-center gap-4 p-4 rounded-xl hover:bg-muted/50 transition-colors group"
                 >
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                    <info.icon className="w-5 h-5 text-primary" />
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                    <Icon size={24} />
                   </div>
-                  <div className="flex-1">
-                    <p className="text-sm text-muted-foreground">{info.label}</p>
-                    <p className="font-medium">{info.value}</p>
+                  <div>
+                    <p className="text-sm text-muted-foreground">{label}</p>
+                    <p className="font-medium">{value}</p>
                   </div>
-                  <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                </motion.a>
+                </a>
               ))}
             </div>
 
             {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="glass rounded-xl p-6"
-            >
-              <h3 className="text-lg font-semibold mb-4">Connect With Me</h3>
+            <div className="p-6 rounded-2xl bg-muted/50">
+              <h3 className="text-lg font-semibold mb-6">Connect with me</h3>
               <div className="flex gap-4">
                 {socialLinks.map(({ icon: Icon, label, href, color }) => (
-                  <motion.a
+                  <a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, y: -3 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-muted-foreground ${color} transition-colors`}
+                    className={`w-12 h-12 rounded-xl bg-background flex items-center justify-center text-muted-foreground transition-all duration-300 hover:scale-110 shadow-sm ${color}`}
                     aria-label={label}
                   >
-                    <Icon size={22} />
-                  </motion.a>
+                    <Icon size={24} />
+                  </a>
                 ))}
               </div>
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.9 }}
-              className="glass rounded-xl p-6 text-center"
-            >
-              <p className="text-muted-foreground mb-4">
-                Prefer a quick chat? Schedule a call!
-              </p>
-              <Button variant="outline" className="gradient-border">
-                Book a Meeting
-                <ArrowUpRight className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>

@@ -4,10 +4,10 @@ import { useRef } from 'react';
 import { Code2, Coffee, Rocket, Heart } from 'lucide-react';
 
 const stats = [
-  { icon: Code2, value: '50+', label: 'Projects Completed' },
-  { icon: Coffee, value: '1000+', label: 'Cups of Coffee' },
-  { icon: Rocket, value: '5+', label: 'Years Experience' },
-  { icon: Heart, value: '30+', label: 'Happy Clients' },
+  { icon: Code2, value: '10+', label: 'Projects Built' },
+  { icon: Coffee, value: '100+', label: 'DS & Algos Solved' },
+  { icon: Rocket, value: '3+', label: 'Years Coding' },
+  { icon: Heart, value: '3+', label: 'Certifications' },
 ];
 
 export const About = () => {
@@ -41,9 +41,9 @@ export const About = () => {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center p-8">
                     <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
-                      <span className="text-5xl font-bold text-primary-foreground">JD</span>
+                      <span className="text-5xl font-bold text-primary-foreground">HK</span>
                     </div>
-                    <p className="text-muted-foreground text-sm">Software Developer</p>
+                    <p className="text-muted-foreground text-sm">Full-Stack Developer</p>
                   </div>
                 </div>
               </div>
@@ -69,25 +69,24 @@ export const About = () => {
             <div>
               <p className="text-primary font-mono text-sm mb-2">// About Me</p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                Turning Ideas Into{' '}
-                <span className="gradient-text">Reality</span>
+                Engineering <span className="gradient-text">Impactful</span> Solutions
               </h2>
             </div>
 
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm a passionate Full-Stack Developer with over 5 years of experience in 
-                creating innovative web applications. My journey in tech started with a 
-                curiosity for how things work, which evolved into a deep love for coding.
+                I'm a Computer Science Engineering student at Walchand Institute of Technology with a strong passion for 
+                Full-Stack Development and Machine Learning. With a GPA of 9.65, I combine academic excellence with 
+                hands-on project experience.
               </p>
               <p>
-                I specialize in building scalable, user-centric applications using modern 
-                technologies like React, Node.js, and cloud services. I believe in writing 
-                clean, maintainable code that not only works but also tells a story.
+                My journey includes shipping real-world projects like an AI-powered cleanliness monitor and a civic 
+                issue reporting system. I've also gained professional experience as a Software Development Intern, 
+                building financial dashboards and working with complex APIs.
               </p>
               <p>
-                When I'm not coding, you'll find me exploring new technologies, contributing 
-                to open-source projects, or sharing knowledge with the developer community.
+                When I'm not coding, I'm exploring Generative AI, solving algorithmic problems, or participating in 
+                hackathons to push the boundaries of what's possible with code.
               </p>
             </div>
 

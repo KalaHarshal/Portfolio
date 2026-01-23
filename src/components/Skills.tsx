@@ -3,38 +3,38 @@ import { useRef } from 'react';
 
 const skillCategories = [
   {
-    title: 'Frontend',
+    title: 'Languages',
     skills: [
-      { name: 'React / Next.js', level: 95 },
-      { name: 'TypeScript', level: 90 },
-      { name: 'Tailwind CSS', level: 95 },
-      { name: 'Vue.js', level: 80 },
+      { name: 'Python', level: 90 },
+      { name: 'C/C++', level: 85 },
+      { name: 'Java', level: 80 },
+      { name: 'Dart / JavaScript', level: 85 },
     ],
   },
   {
-    title: 'Backend',
+    title: 'Web & Mobile',
     skills: [
-      { name: 'Node.js', level: 90 },
-      { name: 'Python', level: 85 },
-      { name: 'PostgreSQL', level: 88 },
-      { name: 'GraphQL', level: 82 },
+      { name: 'React.js', level: 90 },
+      { name: 'Node.js / Express', level: 85 },
+      { name: 'Flutter', level: 90 },
+      { name: 'HTML / CSS', level: 95 },
     ],
   },
   {
-    title: 'Tools & Others',
+    title: 'Data & Tools',
     skills: [
-      { name: 'Git / GitHub', level: 95 },
-      { name: 'Docker', level: 85 },
-      { name: 'AWS / Cloud', level: 80 },
-      { name: 'CI/CD', level: 85 },
+      { name: 'Machine Learning', level: 80 },
+      { name: 'SQL / MongoDB', level: 85 },
+      { name: 'Git / Docker', level: 80 },
+      { name: 'Firebase', level: 85 },
     ],
   },
 ];
 
 const technologies = [
-  'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL',
-  'MongoDB', 'Redis', 'Docker', 'Kubernetes', 'AWS', 'Figma',
-  'TailwindCSS', 'GraphQL', 'REST APIs', 'Git',
+  'Python', 'C++', 'Java', 'React.js', 'Node.js', 'Express.js',
+  'Flutter', 'Firebase', 'MongoDB', 'PostgreSQL', 'Docker',
+  'Git', 'Pandas', 'NumPy', 'Scikit-learn', 'OpenCV',
 ];
 
 export const Skills = () => {
