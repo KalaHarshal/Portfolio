@@ -1,40 +1,28 @@
-import { Navigation } from '@/components/Navigation';
-import { Hero } from '@/components/Hero';
-import { About } from '@/components/About';
-import { Skills } from '@/components/Skills';
-import { Projects } from '@/components/Projects';
-import { Experience } from '@/components/Experience';
-import { Contact } from '@/components/Contact';
-import { Footer } from '@/components/Footer';
-import { CustomCursor } from '@/components/CustomCursor';
-import { ParticleBackground } from '@/components/ParticleBackground';
+import { useEffect, useState } from 'react';
+import { DesktopOS } from '@/os/DesktopOS';
+import Classic from './Classic';
 
+const MIN_DESKTOP_WIDTH = 860;
+
+const getIsWide = () =>
+  typeof window !== 'undefined' ? window.matchMedia(`(min-width: ${MIN_DESKTOP_WIDTH}px)`).matches : true;
+
+/**
+ * On wide viewports we render the interactive macOS-style desktop.
+ * On phones/small tablets, dragging floating windows is a poor experience,
+ * so we fall back to the original single-page scrolling layout.
+ */
 const Index = () => {
-  return (
-    <div className="relative min-h-screen bg-background">
-      {/* Custom Cursor (desktop only) */}
-      <CustomCursor />
-      
-      {/* Particle Background */}
-      <ParticleBackground />
-      
-      {/* Navigation */}
-      <Navigation />
-      
-      {/* Main Content */}
-      <main className="relative z-10">
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Contact />
-      </main>
-      
-      {/* Footer */}
-      <Footer />
-    </div>
-  );
+  const [isWide, setIsWide] = useState(getIsWide);
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(min-width: ${MIN_DESKTOP_WIDTH}px)`);
+    const update = () => setIsWide(mq.matches);
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  return isWide ? <DesktopOS /> : <Classic />;
 };
 
 export default Index;
