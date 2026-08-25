@@ -103,6 +103,24 @@ export const ProjectsWindow = () => {
             <X className="w-3.5 h-3.5" />
           </button>
           <h3 className="text-sm font-semibold">{selected.title}</h3>
+
+          <div className="grid grid-cols-3 gap-2">
+            <div>
+              <p className="text-[9px] uppercase text-muted-foreground">Type</p>
+              <p className="text-[11px] font-medium">
+                {projectCategories.find((c) => c.id === selected.category)?.label ?? '—'}
+              </p>
+            </div>
+            <div>
+              <p className="text-[9px] uppercase text-muted-foreground">Status</p>
+              <p className="text-[11px] font-medium">Completed</p>
+            </div>
+            <div>
+              <p className="text-[9px] uppercase text-muted-foreground">Year</p>
+              <p className="text-[11px] font-medium">{selected.year}</p>
+            </div>
+          </div>
+
           <p className="text-xs text-muted-foreground leading-relaxed">{selected.description}</p>
           <div className="flex flex-wrap gap-1.5">
             {selected.tags.map((t) => (

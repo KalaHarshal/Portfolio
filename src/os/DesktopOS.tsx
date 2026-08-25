@@ -1,17 +1,22 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import { Sun, Moon, Volume2, VolumeX, Wind, Lock, RotateCcw, Download } from 'lucide-react';
 import { BootScreen } from './BootScreen';
 import { LockScreen } from './LockScreen';
 import { MenuBar } from './MenuBar';
 import { Dock } from './Dock';
 import { DesktopIcons } from './DesktopIcons';
 import { DesktopWidget } from './DesktopWidget';
+import { Wallpaper } from './Wallpaper';
 import { Window } from './Window';
+import { CommandPalette, type Command } from './CommandPalette';
 import { useWindowManager } from './hooks/useWindowManager';
 import { apps, dockApps, desktopApps, externalLinks } from './appsConfig';
 import { ParticleBackground } from '@/components/ParticleBackground';
 import { playOpenSound, playCloseSound, playUnlockSound } from './sound';
 import { SystemProvider, useSystem } from './SystemContext';
+import { toast } from '@/components/ui/sonner';
 import type { AppDef } from './types';
 
 type Stage = 'boot' | 'lock' | 'desktop';
@@ -19,7 +24,9 @@ type Stage = 'boot' | 'lock' | 'desktop';
 const DesktopOSInner = () => {
   const [stage, setStage] = useState<Stage>('boot');
   const [everUnlocked, setEverUnlocked] = useState(false);
-  const { soundOn, reduceMotion } = useSystem();
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const { soundOn, setSoundOn, reduceMotion, setReduceMotion } = useSystem();
+  const { theme, setTheme } = useTheme();
   const wm = useWindowManager();
 
   useEffect(() => {
@@ -34,6 +41,9 @@ const DesktopOSInner = () => {
       const about = apps.find((a) => a.id === 'about');
       if (about) wm.openApp(about);
       setEverUnlocked(true);
+      setTimeout(() => {
+        toast('Welcome back, Harshal 👋', { description: 'Your portfolio is ready.' });
+      }, 500);
     }
   }, [wm, soundOn, everUnlocked]);
 
@@ -80,12 +90,16 @@ const DesktopOSInner = () => {
     [wm, soundOn]
   );
 
-  // Cmd/Ctrl+W closes the focused window. Best-effort: some browsers (notably
-  // Chrome) reserve this combo for closing the browser tab and won't let any
-  // page override it — the File > Close Window menu item always works though.
+  // Cmd/Ctrl+K toggles the command palette. Cmd/Ctrl+W closes the focused
+  // window (best-effort: some browsers reserve these combos, e.g. Chrome uses
+  // Ctrl+W to close the tab — File > Close Window always works regardless).
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'w' && wm.focusedId) {
+      const meta = e.metaKey || e.ctrlKey;
+      if (meta && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setPaletteOpen((v) => !v);
+      } else if (meta && e.key.toLowerCase() === 'w' && wm.focusedId) {
         e.preventDefault();
         closeWithSound(wm.focusedId);
       }
@@ -100,10 +114,74 @@ const DesktopOSInner = () => {
   const activeTitle = focusedWindow ? focusedWindow.title : 'Finder';
   const openAppIds = wm.windows.map((w) => w.appId);
 
+  const commands: Command[] = useMemo(() => {
+    const appCommands: Command[] = dockApps.map((app) => ({
+      id: `open-${app.id}`,
+      label: `Open ${app.title}`,
+      icon: app.icon,
+      action: () => openAppWithSound(app),
+    }));
+
+    const externalCommands: Command[] = externalLinks.map((app) => ({
+      id: `link-${app.id}`,
+      label: `Open ${app.title}`,
+      hint: 'opens in new tab',
+      icon: app.icon,
+      action: () => window.open(app.href, '_blank', 'noopener,noreferrer'),
+    }));
+
+    return [
+      ...appCommands,
+      ...externalCommands,
+      {
+        id: 'download-resume',
+        label: 'Download Resume',
+        icon: Download,
+        action: () => {
+          toast.success('Resume.pdf downloading…');
+          const link = document.createElement('a');
+          link.href = '/resume.pdf';
+          link.download = 'resume.pdf';
+          link.click();
+        },
+      },
+      {
+        id: 'toggle-theme',
+        label: theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode',
+        icon: theme === 'light' ? Moon : Sun,
+        action: () => setTheme(theme === 'light' ? 'dark' : 'light'),
+      },
+      {
+        id: 'toggle-sound',
+        label: soundOn ? 'Turn Sound Off' : 'Turn Sound On',
+        icon: soundOn ? VolumeX : Volume2,
+        action: () => setSoundOn(!soundOn),
+      },
+      {
+        id: 'toggle-motion',
+        label: reduceMotion ? 'Turn Motion On' : 'Reduce Motion',
+        icon: Wind,
+        action: () => setReduceMotion(!reduceMotion),
+      },
+      {
+        id: 'lock',
+        label: 'Lock Screen',
+        icon: Lock,
+        action: handleLock,
+      },
+      {
+        id: 'restart',
+        label: 'Restart',
+        icon: RotateCcw,
+        action: handleRestart,
+      },
+    ];
+  }, [theme, setTheme, soundOn, setSoundOn, reduceMotion, setReduceMotion, handleLock, handleRestart, openAppWithSound]);
+
   return (
     <div className="fixed inset-0 overflow-hidden bg-background">
+      <Wallpaper />
       {!reduceMotion && <ParticleBackground />}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5 pointer-events-none" />
 
       <AnimatePresence>
         {stage === 'boot' && <BootScreen key="boot" onDone={() => setStage('lock')} />}
@@ -123,6 +201,7 @@ const DesktopOSInner = () => {
             onCloseFocused={() => wm.focusedId && closeWithSound(wm.focusedId)}
             onRestart={handleRestart}
             onLock={handleLock}
+            onOpenPalette={() => setPaletteOpen(true)}
           />
           <DesktopIcons apps={desktopApps} onOpen={openAppWithSound} />
           <DesktopWidget />
@@ -156,6 +235,8 @@ const DesktopOSInner = () => {
             openAppIds={openAppIds}
             onLaunch={launchFromDockWithSound}
           />
+
+          <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} commands={commands} />
         </>
       )}
     </div>

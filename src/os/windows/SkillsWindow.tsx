@@ -1,7 +1,15 @@
 import { skillCategories, technologies } from '../data';
 
+function proficiencyLabel(level: number) {
+  if (level >= 90) return 'Expert';
+  if (level >= 80) return 'Advanced';
+  if (level >= 65) return 'Intermediate+';
+  return 'Intermediate';
+}
+
 export const SkillsWindow = () => (
   <div className="p-6 space-y-6 text-sm">
+    <p className="text-[11px] text-muted-foreground -mt-1">Self-assessed proficiency</p>
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {skillCategories.map((cat) => (
         <div key={cat.title} className="rounded-lg bg-muted/30 p-4">
@@ -11,7 +19,7 @@ export const SkillsWindow = () => (
               <div key={s.name}>
                 <div className="flex justify-between mb-1 text-[11px]">
                   <span>{s.name}</span>
-                  <span className="text-muted-foreground">{s.level}%</span>
+                  <span className="text-muted-foreground">{proficiencyLabel(s.level)}</span>
                 </div>
                 <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                   <div

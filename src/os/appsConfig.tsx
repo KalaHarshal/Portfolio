@@ -99,3 +99,20 @@ export const externalLinks: ExternalApp[] = [
   { id: 'github', title: 'GitHub', icon: Github, href: 'https://github.com/kalaharshal' },
   { id: 'linkedin', title: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/harshal-kala' },
 ];
+
+// Each app gets its own colored tile, the way real macOS apps do (Mail is blue,
+// Terminal is charcoal, Finder is blue/orange, Trash is silver, etc.) instead of
+// every icon sharing one flat neutral gradient.
+export const appIconColors: Record<string, string> = {
+  about: 'from-blue-400 to-indigo-600',
+  projects: 'from-amber-400 to-orange-600',
+  skills: 'from-fuchsia-400 to-purple-600',
+  experience: 'from-rose-400 to-red-600',
+  contact: 'from-sky-400 to-blue-600',
+  resume: 'from-red-400 to-rose-600',
+  terminal: 'from-zinc-700 to-zinc-900',
+  'system-prefs': 'from-slate-400 to-slate-600',
+  trash: 'from-slate-300 to-slate-500',
+  github: 'from-zinc-700 to-zinc-950',
+  linkedin: 'from-sky-500 to-blue-700',
+};

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Send, Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { toast } from '@/components/ui/sonner';
 import { contactInfo, socialLinks } from '../data';
 
 export const ContactWindow = () => {
@@ -9,6 +10,7 @@ export const ContactWindow = () => {
     e.preventDefault();
     const subject = `Portfolio Contact from ${form.name}`;
     const body = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`;
+    toast.success('Opening your mail client…', { description: "I'll get back to you soon." });
     window.location.href = `mailto:kalaharshal03@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 

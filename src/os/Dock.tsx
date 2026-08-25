@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { AppDef, ExternalApp } from './types';
+import { appIconColors } from './appsConfig';
+import { cn } from '@/lib/utils';
 
 interface DockProps {
   apps: AppDef[];
@@ -28,9 +30,12 @@ export const Dock = ({ apps, externalApps, openAppIds, onLaunch }: DockProps) =>
                 animate={{ scale: isHovered ? 1.25 : 1, y: isHovered ? -8 : 0 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                 aria-label={app.title}
-                className="w-11 h-11 rounded-xl bg-gradient-to-br from-secondary to-muted border border-border/40 flex items-center justify-center shadow-md"
+                className={cn(
+                  'w-11 h-11 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-md',
+                  appIconColors[app.id] ?? 'from-secondary to-muted'
+                )}
               >
-                <Icon className="w-5 h-5 text-foreground" strokeWidth={1.75} />
+                <Icon className="w-5 h-5 text-white drop-shadow-sm" strokeWidth={1.75} />
               </motion.button>
               {isOpen && <span className="absolute -bottom-1.5 w-1 h-1 rounded-full bg-foreground/70" />}
               {isHovered && (
@@ -58,9 +63,12 @@ export const Dock = ({ apps, externalApps, openAppIds, onLaunch }: DockProps) =>
                 animate={{ scale: isHovered ? 1.25 : 1, y: isHovered ? -8 : 0 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                 aria-label={app.title}
-                className="w-11 h-11 rounded-xl bg-gradient-to-br from-secondary to-muted border border-border/40 flex items-center justify-center shadow-md"
+                className={cn(
+                  'w-11 h-11 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-md',
+                  appIconColors[app.id] ?? 'from-secondary to-muted'
+                )}
               >
-                <Icon className="w-5 h-5 text-foreground" strokeWidth={1.75} />
+                <Icon className="w-5 h-5 text-white drop-shadow-sm" strokeWidth={1.75} />
               </motion.a>
               {isHovered && (
                 <span className="absolute -top-9 px-2 py-1 rounded-md bg-popover text-popover-foreground text-[11px] whitespace-nowrap shadow-lg border border-border/50 pointer-events-none">

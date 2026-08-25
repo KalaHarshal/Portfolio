@@ -20,6 +20,7 @@ interface MenuBarProps {
   onCloseFocused: () => void;
   onRestart: () => void;
   onLock: () => void;
+  onOpenPalette: () => void;
 }
 
 export const MenuBar = ({
@@ -31,6 +32,7 @@ export const MenuBar = ({
   onCloseFocused,
   onRestart,
   onLock,
+  onOpenPalette,
 }: MenuBarProps) => {
   const [now, setNow] = useState(new Date());
 
@@ -114,7 +116,9 @@ export const MenuBar = ({
 
       <div className="flex items-center gap-3 text-muted-foreground">
         <Wifi className="w-3.5 h-3.5" />
-        <Search className="w-3.5 h-3.5" />
+        <button onClick={onOpenPalette} aria-label="Search (⌘K)" className="hover:text-foreground transition-colors">
+          <Search className="w-3.5 h-3.5" />
+        </button>
         <ControlCenter onOpenApp={onOpenApp} />
         <span className="text-foreground whitespace-nowrap">
           {dateStr} {timeStr}
