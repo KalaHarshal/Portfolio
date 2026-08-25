@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { ControlCenter } from './ControlCenter';
-import { apps } from './appsConfig';
+import { apps, systemPrefsApp } from './appsConfig';
 import type { AppDef, OpenWindow } from './types';
 
 interface MenuBarProps {
@@ -20,8 +20,6 @@ interface MenuBarProps {
   onCloseFocused: () => void;
   onRestart: () => void;
   onLock: () => void;
-  soundOn: boolean;
-  onToggleSound: (v: boolean) => void;
 }
 
 export const MenuBar = ({
@@ -33,8 +31,6 @@ export const MenuBar = ({
   onCloseFocused,
   onRestart,
   onLock,
-  soundOn,
-  onToggleSound,
 }: MenuBarProps) => {
   const [now, setNow] = useState(new Date());
 
@@ -61,6 +57,9 @@ export const MenuBar = ({
           <DropdownMenuContent align="start" sideOffset={10} className="w-56">
             <DropdownMenuItem onClick={() => aboutApp && onOpenApp(aboutApp)}>
               About This Portfolio
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onOpenApp(systemPrefsApp)}>
+              System Preferences…
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={onLock}>Lock Screen</DropdownMenuItem>
@@ -116,7 +115,7 @@ export const MenuBar = ({
       <div className="flex items-center gap-3 text-muted-foreground">
         <Wifi className="w-3.5 h-3.5" />
         <Search className="w-3.5 h-3.5" />
-        <ControlCenter soundOn={soundOn} onToggleSound={onToggleSound} />
+        <ControlCenter onOpenApp={onOpenApp} />
         <span className="text-foreground whitespace-nowrap">
           {dateStr} {timeStr}
         </span>

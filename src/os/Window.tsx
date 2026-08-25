@@ -4,6 +4,7 @@ import { X, Minus, Maximize2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { OpenWindow } from './types';
 import { MENU_BAR_HEIGHT } from './hooks/useWindowManager';
+import { useSystem } from './SystemContext';
 
 interface WindowProps {
   win: OpenWindow;
@@ -28,6 +29,7 @@ export const Window = ({
   onDragEnd,
   onResizeEnd,
 }: WindowProps) => {
+  const { reduceMotion } = useSystem();
   const dragState = useRef<{ startX: number; startY: number; originX: number; originY: number } | null>(null);
   const resizeState = useRef<{ startX: number; startY: number; startW: number; startH: number } | null>(null);
   const posRef = useRef({ x: win.x, y: win.y });
@@ -105,10 +107,10 @@ export const Window = ({
       role="dialog"
       aria-label={win.title}
       onPointerDownCapture={onFocus}
-      initial={{ opacity: 0, scale: 0.92, y: 16 }}
+      initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.92, y: 16 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.85, y: 60 }}
-      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+      exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.85, y: 60 }}
+      transition={{ duration: reduceMotion ? 0.12 : 0.22, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'absolute',
         left: win.x,

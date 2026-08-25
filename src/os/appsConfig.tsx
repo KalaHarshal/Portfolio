@@ -1,4 +1,4 @@
-import { User, FolderKanban, Activity, History, Mail, FileText, Github, Linkedin, Trash2, Terminal } from 'lucide-react';
+import { User, FolderKanban, Activity, History, Mail, FileText, Github, Linkedin, Trash2, Terminal, Settings } from 'lucide-react';
 import type { AppDef, ExternalApp } from './types';
 import { AboutWindow } from './windows/AboutWindow';
 import { ProjectsWindow } from './windows/ProjectsWindow';
@@ -8,6 +8,7 @@ import { ContactWindow } from './windows/ContactWindow';
 import { ResumeWindow } from './windows/ResumeWindow';
 import { TrashWindow } from './windows/TrashWindow';
 import { TerminalWindow } from './windows/TerminalWindow';
+import { SystemPreferencesWindow } from './windows/SystemPreferencesWindow';
 
 export const apps: AppDef[] = [
   {
@@ -15,8 +16,8 @@ export const apps: AppDef[] = [
     title: 'About Me',
     icon: User,
     component: AboutWindow,
-    defaultSize: { width: 480, height: 420 },
-    minSize: { width: 340, height: 320 },
+    defaultSize: { width: 640, height: 460 },
+    minSize: { width: 420, height: 360 },
   },
   {
     id: 'projects',
@@ -78,8 +79,21 @@ export const terminalApp: AppDef = {
   minSize: { width: 360, height: 280 },
 };
 
-export const dockApps: AppDef[] = [...apps, terminalApp, trashApp];
-export const desktopApps: AppDef[] = apps;
+export const systemPrefsApp: AppDef = {
+  id: 'system-prefs',
+  title: 'System Preferences',
+  icon: Settings,
+  component: SystemPreferencesWindow,
+  defaultSize: { width: 420, height: 560 },
+  minSize: { width: 360, height: 480 },
+};
+
+// Dock shows everything — content apps plus system utilities — like a real macOS Dock.
+export const dockApps: AppDef[] = [...apps, terminalApp, systemPrefsApp, trashApp];
+
+// Desktop icons are shortcuts to content only; Mail/Terminal/Preferences/Trash
+// live in the dock so the two navigation surfaces don't duplicate each other.
+export const desktopApps: AppDef[] = apps.filter((a) => a.id !== 'contact');
 
 export const externalLinks: ExternalApp[] = [
   { id: 'github', title: 'GitHub', icon: Github, href: 'https://github.com/kalaharshal' },

@@ -1,15 +1,18 @@
 import { useTheme } from 'next-themes';
-import { Sun, Moon, Volume2, VolumeX, SlidersHorizontal } from 'lucide-react';
+import { Sun, Moon, Volume2, VolumeX, SlidersHorizontal, Settings } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Switch } from '@/components/ui/switch';
+import { useSystem } from './SystemContext';
+import { systemPrefsApp } from './appsConfig';
+import type { AppDef } from './types';
 
 interface ControlCenterProps {
-  soundOn: boolean;
-  onToggleSound: (v: boolean) => void;
+  onOpenApp: (app: AppDef) => void;
 }
 
-export const ControlCenter = ({ soundOn, onToggleSound }: ControlCenterProps) => {
+export const ControlCenter = ({ onOpenApp }: ControlCenterProps) => {
   const { theme, setTheme } = useTheme();
+  const { soundOn, setSoundOn } = useSystem();
   const isLight = theme === 'light';
 
   return (
@@ -32,8 +35,15 @@ export const ControlCenter = ({ soundOn, onToggleSound }: ControlCenterProps) =>
             {soundOn ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
             <span>Sound Effects</span>
           </div>
-          <Switch checked={soundOn} onCheckedChange={onToggleSound} />
+          <Switch checked={soundOn} onCheckedChange={setSoundOn} />
         </div>
+        <button
+          onClick={() => onOpenApp(systemPrefsApp)}
+          className="w-full flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground pt-1 border-t border-border/40 mt-1"
+        >
+          <Settings className="w-3.5 h-3.5" />
+          Open System Preferences…
+        </button>
       </PopoverContent>
     </Popover>
   );

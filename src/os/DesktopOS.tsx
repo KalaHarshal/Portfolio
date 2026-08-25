@@ -5,19 +5,21 @@ import { LockScreen } from './LockScreen';
 import { MenuBar } from './MenuBar';
 import { Dock } from './Dock';
 import { DesktopIcons } from './DesktopIcons';
+import { DesktopWidget } from './DesktopWidget';
 import { Window } from './Window';
 import { useWindowManager } from './hooks/useWindowManager';
 import { apps, dockApps, desktopApps, externalLinks } from './appsConfig';
 import { ParticleBackground } from '@/components/ParticleBackground';
 import { playOpenSound, playCloseSound, playUnlockSound } from './sound';
+import { SystemProvider, useSystem } from './SystemContext';
 import type { AppDef } from './types';
 
 type Stage = 'boot' | 'lock' | 'desktop';
 
-export const DesktopOS = () => {
+const DesktopOSInner = () => {
   const [stage, setStage] = useState<Stage>('boot');
   const [everUnlocked, setEverUnlocked] = useState(false);
-  const [soundOn, setSoundOn] = useState(false);
+  const { soundOn, reduceMotion } = useSystem();
   const wm = useWindowManager();
 
   useEffect(() => {
@@ -100,7 +102,7 @@ export const DesktopOS = () => {
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-background">
-      <ParticleBackground />
+      {!reduceMotion && <ParticleBackground />}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5 pointer-events-none" />
 
       <AnimatePresence>
@@ -121,10 +123,9 @@ export const DesktopOS = () => {
             onCloseFocused={() => wm.focusedId && closeWithSound(wm.focusedId)}
             onRestart={handleRestart}
             onLock={handleLock}
-            soundOn={soundOn}
-            onToggleSound={setSoundOn}
           />
           <DesktopIcons apps={desktopApps} onOpen={openAppWithSound} />
+          <DesktopWidget />
 
           <AnimatePresence>
             {wm.windows.map((w) => {
@@ -160,3 +161,9 @@ export const DesktopOS = () => {
     </div>
   );
 };
+
+export const DesktopOS = () => (
+  <SystemProvider>
+    <DesktopOSInner />
+  </SystemProvider>
+);
